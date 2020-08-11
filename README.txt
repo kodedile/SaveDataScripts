@@ -1,3 +1,8 @@
+About:
+
+These are utility files I made to make it easier to save and load from checkpoints in my playthroughs of Kura5 (see https://chickenhat.itch.io/kura5-bonds-of-the-undying).
+
+////////////////////////////////////////////////////////////////
 Setup: 
 
 Extract or move the whole "SaveDataScripts" folder into the directory of your Kura5.exe game 
