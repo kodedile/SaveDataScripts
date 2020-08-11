@@ -58,4 +58,4 @@ Command Prompt mode:
 /////////////////////////////////////////////////////////////////
 
 Questions, comments, complaints about SaveDataScripts?
-Contact @Kodedile on Twitter or itch.io
+Contact @Kodedile on Twitter or Github
