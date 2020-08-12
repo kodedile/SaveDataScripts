@@ -19,5 +19,5 @@ FOR /f "delims=" %%i IN ("%file%") DO (
 :: create the data folder in case it doesn't exist yet
 MKDIR "%DataFolder%"
 :: copy save file to data folder
-COPY "%SaveFolder%\%FileName%.bok" "%DataFolder%\save.bok"
+COPY /-Y "%SaveFolder%\%FileName%.bok" "%DataFolder%\save.bok"
 :: PAUSE
