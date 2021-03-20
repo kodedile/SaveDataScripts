@@ -1,11 +1,13 @@
+# Quick Links
+
 - [About](#about)
 - [Known Limitations](#known-limitations)
 - [Set Up](#set-up)
+    - [Recommended Directory Structure](#recommended-directory-structure)
     - [File Paths](#file-paths)
         - [Local Variable: SaveFolder](#local-variable-savefolder)
         - [Local Variable: DataFolder](#local-variable-datafolder)
         - [Local Variable: LogFolder](#local-variable-logfolder)
-    - [Recommended Directory Structure](#recommended-directory-structure)
 - [How To Use](#how-to-use)
     - [Save Data](#save-data)
     - [Load Data](#load-data)
