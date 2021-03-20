@@ -35,6 +35,29 @@ I recommend putting the three scripts in the Kura5 root directory. If you have m
 
 If you just want to use one of my sample saves, you can put the save file anywhere and use the `dropnload.bat` script to load it into a Kura5 game. NOTE: the current `dropnload.bat` won't accept spaces in the filepath... I need to fix that somehow. See [Load Data](#load-data) for more information.
 
+## Recommended Directory Structure
+
+```
+Kura5_Builds/
+    Kura5_version/
+        Kura5_Data/
+            save.bok
+	    ...
+        dropnload.bat
+        Kura5.exe
+        load.bat
+        save.bat
+        UnityPlayer.dll
+        ...
+    Save_Files/
+        version/
+	    tagged-example-01.bok
+	    tagged-example-02.bok
+	    ...
+	example-01.bok
+	...
+```
+
 ## File Paths
 
 To get these scripts to work with your filesystem, you should change the following:
@@ -59,29 +82,6 @@ Used to find the `Kura5_Data` folder where the game keeps `save.bok`.  You can l
 **Default**: `Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5` (save.bat)
 
 Used in `save.bat` to find the `output-log.txt` needed for debugging. You should only need to change `USERNAME` to your system username, unless your path is different.
-
-## Recommended Directory Structure
-
-```
-Kura5_Builds/
-    Kura5_version/
-        Kura5_Data/
-            save.bok
-	    ...
-        dropnload.bat
-        Kura5.exe
-        load.bat
-        save.bat
-        UnityPlayer.dll
-        ...
-    Save_Files/
-        version/
-	    tagged-example-01.bok
-	    tagged-example-02.bok
-	    ...
-	example-01.bok
-	...
-```
 
 # How To Use
 
