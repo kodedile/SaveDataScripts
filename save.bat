@@ -1,9 +1,11 @@
 @ECHO OFF
 SETLOCAL
+:: filepath for output log
+Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5
 :: directory for Kura5 data files
-SET DataFolder=%cd%\..\Kura5_Data
+SET DataFolder=%cd%\Kura5_Data
 :: directory for storing save files
-SET SaveFolder=%cd%\Save_Files
+SET SaveFolder=%cd%\..\Save_Files\VERSION
 :: IF a file was not passed to this script
 IF [%1]==[] (
 	:: prompt user to specify a save file
@@ -20,3 +22,5 @@ FOR /f "delims=" %%i IN ("%file%") DO (
 MKDIR "%SaveFolder%"
 :: copy data file to save folder
 COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%\%FileName%.bok"
+:: copy output log file to save folder
+COPY /-Y "%LogFolder%\output_log.txt" "%SaveFolder%\log-%FileName%.txt"
