@@ -1,6 +1,21 @@
+- [About](#about)
+- [How To Use](#how-to-use)
+- [Save Data](#save-data)
+- [Load Data](#load-data)
+- [Easy Load Method](#easy-load-method)
+- [Alternative Load Method](#alternative-load-method)
+- [Command Prompt Mode](#command-prompt-mode)
+- [Set Up](#set-up)
+- [File Paths](#file-paths)
+- [Local Variable: SaveFolder](#local-variable-savefolder)
+- [Local Variable: DataFolder](#local-variable-datafolder)
+- [Local Variable: LogFolder](#local-variable-logfolder)
+- [Recommended Directory Structure](#recommended-directory-structure)
+- [Known Limitations](#known-limitations)
+
 # About
 
-These are utility files I made to make it easier to save and load from checkpoints in my playthroughs of [Kura5](https://chickenhat.itch.io/kura5-bonds-of-the-undying).
+These are utility files I made to make it easier to save and load from checkpoints in my playthroughs of [Kura5](https://chickenhat.itch.io/kura5-bonds-of-the-undying). If you have any questions, comments, or complaints, contact @kodedile on [Twitter](https://twitter.com/kodedile) or [Github](https://github.com/kodedile)
 
 # How To Use
 
@@ -61,37 +76,9 @@ If you just want to use one of my sample saves, you can put the save file anywhe
 
 To get these scripts to work with your filesystem, you should change the following:
 
-### save.bat
-
-```batch
-:: filepath for output log
-Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5
-:: directory for Kura5 data files
-SET DataFolder=%cd%\Kura5_Data
-:: directory for storing save files
-SET SaveFolder=%cd%\..\Save_Files\VERSION
-```
-
-### load.bat
-
-```batch
-:: directory for Kura5 data files
-SET DataFolder=%cd%\Kura5_Data
-:: directory for storing save files
-SET SaveFolder=%cd%\..\Save_Files\VERSION
-```
-
-### dropnload.bat
-
-```batch
-:: directory for Kura5 data files relative to this script
-:: NOTE does not like folders with spaces in the name
-SET DataFolder=%ScriptPath:~0,-1%\Kura5_Data
-```
-
 ### Local Variable: SaveFolder
 
-Default: `SET SaveFolder=%cd%\..\Save_Files\VERSION` (save.bat and load.bat)
+**Default**: `SET SaveFolder=%cd%\..\Save_Files\VERSION` (save.bat and load.bat)
 
 Used in `save.bat` and `load.bat` to find your save folder.  You will want to modify these so that `VERSION` is the Kura5 version from which your save file was created.
 
@@ -99,14 +86,14 @@ If you do not follow the [Recommended Directory Structure](#recommended-director
 
 ### Local Variable: DataFolder
 
-Default: `SET DataFolder=%cd%\Kura5_Data` (save.bat and load.bat)
-Default: `SET %ScriptPath:~0,-1%\Kura5_Data` (dropnload.bat)
+**Default**: `SET DataFolder=%cd%\Kura5_Data` (save.bat and load.bat)  
+**Default**: `SET %ScriptPath:~0,-1%\Kura5_Data` (dropnload.bat)
 
 Used to find the `Kura5_Data` folder where the game keeps `save.bok`.  You can leave this unchanged unless you are not following the [Recommended Directory Structure](#recommended-directory-structure).
 
 ### Local Variable: LogFolder
 
-Default: `Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5` (save.bat)
+**Default**: `Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5` (save.bat)
 
 Used in `save.bat` to find the `output-log.txt` needed for debugging. You should only need to change `USERNAME` to your system username, unless your path is different.
 
@@ -136,11 +123,7 @@ Kura5_Builds/
 # Known Limitations
 
 - developed for Windows systems
-- `save.bat` will only use the filename you specify.  When running `save.bat NestedFolder/FileToSave`, `NestedFolder/` will be ignored.
+- `save.bat` will only use the filename you specify.  When running `save.bat NestedFolder/FileToSave`, the script will ignore `NestedFolder/`
 - `dropnload.bat` will not work if the file you are trying to load has spaces in its path
     - This will work: `C:\Users\USERNAME\Kura5_Builds\Save_Files\x86_0306_dev\FileToLoad.bok`
     - This will not work: `C:\Users\USERNAME\Kura5 Builds\Save Files\x86_0306_dev\FileToLoad.bok`
-
-#  Contact Information
-
-If you have any questions, comments, or complaints, contact @kodedile on [Twitter](https://twitter.com/kodedile) or [Github](https://github.com/kodedile)
