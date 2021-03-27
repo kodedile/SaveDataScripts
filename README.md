@@ -60,7 +60,7 @@ Kura5_Builds/
 
 ## File Paths
 
-To get these scripts to work with your filesystem, you should change the following:
+To get these scripts to work with your filesystem, open them in a plain text editor (notepad, notepad++, etc.) and change the following:
 
 ### Local Variable: SaveFolder
 
