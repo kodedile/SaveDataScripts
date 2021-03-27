@@ -120,12 +120,12 @@ This method is good for when you want to quickly save files in succession, or sh
 1.  Search for "cmd.exe" on Windows
 2.  Run "cmd.exe"
 3.  Change to the working directory. For example: `cd "C:\Users\USERNAME\Downloads\Kura5_Builds\Kura5_version"`
-4.  To save, type `save.bat NameToSave` and press ENTER to save to `NameToSave.bok` and `log-NameToSave.txt`
+4.  To save, type `save NameToSave` and press ENTER to save to `NameToSave.bok` and `log-NameToSave.txt`
     1.  If you are asked to confirm a file overwrite, you may have forgotten to change the filename for your new save.
     2.  Type `n` and press `ENTER` to cancel.
     3.  You may also be asked about overwriting the log file of the same name, in which case type `n` and press `ENTER` to cancel again.
     4.  After canceling, try running `save.bat NewFileName`
-6.  To load, type `load.bat NameToLoad` and press ENTER to load the save file `NameToLoad.bok`
+6.  To load, type `load NameToLoad` and press ENTER to load the save file `NameToLoad.bok`
     1.  If overwriting an existing file (like `Kura5_Data/save.bok`) you will be asked to confirm the overwrite. 
     2.  Type `y` and press `ENTER` to confirm that you no longer need the data in `Kura5_Data/save.bok`. Otherwise, type `n` and press `ENTER` to cancel.
 7.  To reuse a previous command or see the previous filename you typed, use the `Up` and `Down` arrow keys to scroll through previous commands.
