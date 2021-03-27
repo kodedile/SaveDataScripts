@@ -18,7 +18,7 @@
         - [Start in Library](#ch3-night-debt300)
     - Twilight
         - Day-Night [Start by Train](#ch3-twilightDN-start)
-        - Night-Day [Start in Train](#ch3-twilightND-start)
+        - Night-Day [Start by Train](#ch3-twilightND-start)
 
 ## `ch1-day-san-miguel`
 
