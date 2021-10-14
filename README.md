@@ -30,7 +30,7 @@ Extract the files from the [master zip archive](https://github.com/kodedile/Save
 
 I recommend putting the three scripts in the Kura5 root directory. If you have more than one Kura5 directory (for different versions), make copies of the scripts for each of those root directories.  Then you will need to adjust the file paths variables accordingly (see [File Paths](#file-paths)).
 
-If you just want to use one of my sample saves, you can put the save file anywhere and use the `dropnload.bat` script to load it into a Kura5 game. See [Load Data](#load-data) for more information.
+If you just want to use one of my sample saves, you can put the save file anywhere and use the `load.bat` script to load it into a Kura5 game. See [Load Data](#load-data) for more information.
 
 ## Recommended Directory Structure
 
@@ -40,7 +40,6 @@ Kura5_Builds/
         Kura5_Data/
             save.bok
 	    ...
-        dropnload.bat
         Kura5.exe
         load.bat
         save.bat
@@ -75,8 +74,7 @@ If you do not follow the [Recommended Directory Structure](#recommended-director
 
 ### Local Variable: DataFolder
 
-**Default**: `SET DataFolder=%cd%\Kura5_Data` (save.bat and load.bat)  
-**Default**: `SET %ScriptPath:~0,-1%\Kura5_Data` (dropnload.bat)
+**Default**: `SET DataFolder=%cd%\Kura5_Data` (save.bat and load.bat)
 
 Used to find the `Kura5_Data` folder where the game keeps `save.bok`.  You can leave this unchanged unless you are not following the [Recommended Directory Structure](#recommended-directory-structure).
 
@@ -121,7 +119,7 @@ Used in `save.bat` to find the `output_log.txt` needed for debugging. You should
 NOTE: This method will overwrite Game Slot 1 if your filename doesn't start with `slotN_` (ex: `slot2_file.bok` will use Game Slot 2)
 
 1.  If playing Kura5, return to the `Main Menu` or `Quit Game`
-2.  Drag and drop a single `Save_Files/VERSION/filename.bok` onto dropnload.bat
+2.  Drag and drop a single `Save_Files/VERSION/filename.bok` onto `load.bat`
     1.  If overwriting an existing file (like `Kura5_Data/save.bok`) you will be asked to confirm the overwrite. 
     2.  Type `y` and press `ENTER` to confirm if you no longer need the data in the game slot. Otherwise, type `n` and press `ENTER` to cancel.
 3.  Back in Kura5, start the game and choose the same slot N (1, 2, 3, or 4) that you loaded your game into. 
