@@ -1,10 +1,10 @@
 :: Author: Kodedile
 :: Created: June 23, 2021
-:: Updated: June 23, 2021
+:: Updated: December 22, 2021
 :: Usage: save.bat [0 | 1 | 2 | 3 | 4] [filepath] 
 :: Example: save.bat 2 speedrun/daypath/start
 ::       will save the following:
-::             save2.bok into speedrun/daypath/slot2_start.bok
+::             save2.bok into speedrun/daypath/start.bok
 ::             output_log.txt into speedrun/daypath/log_slot2_start.txt
 :: Note: arguments allowed to be in any order, .bok extension optional
 :: Note2: digits other than 0/1/2/3/4 will default to 1 (save.bok)
@@ -17,9 +17,9 @@
 SETLOCAL EnableDelayedExpansion
 
 :: filepath for output log
-Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5
+Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for Kura5 data files
-SET DataFolder=%cd%\Kura5_Data
+SET DataFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
 SET SaveFolder=%cd%\..\Save_Files\VERSION
 :: slot number for save file (default to 1)
@@ -68,8 +68,8 @@ GOTO ProcessArguments
 	IF "%SlotNum%"=="1" GOTO SaveSlot1
 	
 	:: copy data file to save folder
-	COPY /-Y "%DataFolder%\save%SlotNum%.bok" "%SaveFolder%slot%SlotNum%_%FileName%.bok"
-	ECHO Saved "%DataFolder%\save%SlotNum%.bok" as "%SaveFolder%slot%SlotNum%_%FileName%.bok"
+	COPY /-Y "%DataFolder%\save%SlotNum%.bok" "%SaveFolder%%FileName%.bok"
+	ECHO Saved "%DataFolder%\save%SlotNum%.bok" as "%SaveFolder%%FileName%.bok"
 	
 	:: copy output log file to save folder
 	COPY /-Y "%LogFolder%\output_log.txt" "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
@@ -98,8 +98,8 @@ GOTO ProcessArguments
 
 :SaveSlot1
 	:: copy data file to save folder
-	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%slot%SlotNum%_%FileName%.bok"
-	ECHO Saved "%DataFolder%\save.bok" as "%SaveFolder%slot%SlotNum%_%FileName%.bok"
+	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%%FileName%.bok"
+	ECHO Saved "%DataFolder%\save.bok" as "%SaveFolder%%FileName%.bok"
 	
 	:: copy output log file to save folder
 	COPY /-Y "%LogFolder%\output_log.txt" "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
