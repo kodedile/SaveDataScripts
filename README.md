@@ -1,6 +1,8 @@
 # Quick Links
 
 - [About](#about)
+- [Chapter 4 Changes](#chapter-4-changes)
+    - [Versioning](#versioning)
 - [Known Limitations](#known-limitations)
 - [Set Up](#set-up)
     - [Recommended Directory Structure](#recommended-directory-structure)
@@ -18,15 +20,28 @@
 
 These are utility files I made to make it easier to save and load from checkpoints in my playthroughs of [Kura5](https://chickenhat.itch.io/kura5-bonds-of-the-undying). If you have any questions, comments, or complaints, contact @kodedile on [Twitter](https://twitter.com/kodedile) or [Github](https://github.com/kodedile)
 
+# Chapter 4 Changes
+
+- The `Log_Folder` and `Data_Folder` are now both: `C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU`
+- Saving no longer appends `slotN_` to the filename, but loading will still support files using the old structure
+
+## Versioning
+
+Chapter 4 changes the location of save files and the output log. If you are unsure if your build is from before Chapter 4:
+
+- Public Releases: version 042 (2021 and earlier)
+- Development Releases: build 1210 (year 2021) and earlier
+
 # Known Limitations
 
 - developed for Windows systems
 - does not prompt user when arguments are missing
-- if you save a file with `save 3 file` then to load it you need to do `load slot3_file`
 
 # Set Up 
 
 Extract the files from the [master zip archive](https://github.com/kodedile/SaveDataScripts/archive/refs/heads/master.zip) or download the specific files you want.
+
+NOTE:  Versions of Kura5 older than December 15th 2021 should use the [Chapter 3 Release](https://github.com/kodedile/SaveDataScripts/releases/tag/ch3) instead of the master zip archive.
 
 I recommend putting the three scripts in the Kura5 root directory. If you have more than one Kura5 directory (for different versions), make copies of the scripts for each of those root directories.  Then you will need to adjust the file paths variables accordingly (see [File Paths](#file-paths)).
 
@@ -38,8 +53,6 @@ If you just want to use one of my sample saves, you can put the save file anywhe
 Kura5_Builds/
     Kura5_version/
         Kura5_Data/
-            save.bok
-	    ...
         Kura5.exe
         load.bat
         save.bat
@@ -48,15 +61,15 @@ Kura5_Builds/
     Save_Files/
         version/
 	    first run/
-	        slot1_start.bok
-	        slot1_end.bok
+	        start.bok
+	        end.bok
 		...
 	    second run/
-	        slot2_start.bok
-	        slot2_end.bok
+	        start.bok
+	        end.bok
 		...
 	    ...
-	sample.bok
+	    sample.bok
 	...
 ```
 
@@ -74,13 +87,13 @@ If you do not follow the [Recommended Directory Structure](#recommended-director
 
 ### Local Variable: DataFolder
 
-**Default**: `SET DataFolder=%cd%\Kura5_Data` (save.bat and load.bat)
+**Default**: `SET DataFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU` (save.bat and load.bat)
 
 Used to find the `Kura5_Data` folder where the game keeps `save.bok`.  You can leave this unchanged unless you are not following the [Recommended Directory Structure](#recommended-directory-structure).
 
 ### Local Variable: LogFolder
 
-**Default**: `Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5 Devs\Kura5` (save.bat)
+**Default**: `Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU` (save.bat)
 
 Used in `save.bat` to find the `output_log.txt` needed for debugging. You should only need to change `USERNAME` to your system username, unless your path is different.
 
@@ -101,11 +114,11 @@ Used in `save.bat` to find the `output_log.txt` needed for debugging. You should
 
 ### Examples
 - `save 3 daylight/wadjet`
-    - saves the data from Slot 3 (`Kura5_Data/save3.bok`) into the location `Save_Files/VERSION/daylight/slot3_wadjet.bok`
+    - saves the data from Slot 3 (`Kura5_Data/save3.bok`) into the location `Save_Files/VERSION/daylight/wadjet.bok`
     - saves the output log into the location `Save_Files/VERSION/daylight/log_slot3_wadjet.bok`
 - `save "daylight run/first attempt/wadjet"`
-    - saves the data from Slot 1 (`Kura5_Data/save.bok`) into the location `Save_Files/VERSION/daylight run/first attempt/slot1_wadjet.bok`
-    - saves the output log into the location `Save_Files/VERSION/daylight run/first attempt/slot1_wadjet.bok`
+    - saves the data from Slot 1 (`Kura5_Data/save.bok`) into the location `Save_Files/VERSION/daylight run/first attempt/wadjet.bok`
+    - saves the output log into the location `Save_Files/VERSION/daylight run/first attempt/wadjet.bok`
     - if N is not specified, it assumes you want Slot 1
     - if your folder names have spaces, use "double quotes" to capture your path
 - `save 0 test`
@@ -145,7 +158,6 @@ NOTE: This method will overwrite Game Slot 1 if your filename doesn't start with
 ### Examples
 - `load 3 daylight/file`
     - loads the file `Save_Files/VERSION/daylight/file.bok` into Game Slot 3 (`Kura5_Data/save3.bok`)
-    - if the file can't be found and you know you previously used `save 3 daylight/file`, try `load daylight/slot3_file` 
 - `load daylight/slot3_file`
     - loads the file `Save_Files/VERSION/daylight run/first attempt/file.bok` into Game Slot 3 (`Kura5_Data/save3.bok`)
     - if `N` is not specified, it looks for `slotN_` in the filename. In this case, `N` is 3
