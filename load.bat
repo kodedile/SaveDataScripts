@@ -14,9 +14,9 @@
 SETLOCAL EnableDelayedExpansion
 
 :: directory for Kura5 data files
-SET DataFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU
+SET DataFolder=C:\Users\%USERNAME%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
-SET SaveFolder=%cd%\..\Save_Files\VERSION
+SET SaveFolder=%cd%\Save_Files
 :: slot number for save file (default to no number)
 SET SlotNum=
 :: path for save file

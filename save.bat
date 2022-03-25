@@ -16,12 +16,10 @@
 @ECHO OFF 
 SETLOCAL EnableDelayedExpansion
 
-:: filepath for output log
-Set LogFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for Kura5 data files
-SET DataFolder=C:\Users\USERNAME\AppData\LocalLow\Kura5\Kura5BOTU
+SET DataFolder=C:\Users\%USERNAME%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
-SET SaveFolder=%cd%\..\Save_Files\VERSION
+SET SaveFolder=%cd%\Save_Files
 :: slot number for save file (default to 1)
 SET SlotNum=1
 :: path for save file
@@ -72,7 +70,7 @@ GOTO ProcessArguments
 	ECHO Saved "%DataFolder%\save%SlotNum%.bok" as "%SaveFolder%%FileName%.bok"
 	
 	:: copy output log file to save folder
-	COPY /-Y "%LogFolder%\output_log.txt" "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
 	ECHO Saved log file as "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
 
 	GOTO :EOF
@@ -91,7 +89,7 @@ GOTO ProcessArguments
 
 :SaveOutputOnly
 	:: copy output log file to save folder
-	COPY /-Y "%LogFolder%\output_log.txt" "%SaveFolder%log_%FileName%.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%log_%FileName%.txt"
 	ECHO Saved log file as "%SaveFolder%log_%FileName%.txt"
 	GOTO :EOF
 
@@ -102,7 +100,7 @@ GOTO ProcessArguments
 	ECHO Saved "%DataFolder%\save.bok" as "%SaveFolder%%FileName%.bok"
 	
 	:: copy output log file to save folder
-	COPY /-Y "%LogFolder%\output_log.txt" "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
 	ECHO Saved log file as "%SaveFolder%log_slot%SlotNum%_%FileName%.txt"
 	
 	GOTO :EOF
