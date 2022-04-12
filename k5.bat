@@ -2,9 +2,9 @@
 :: Created: March 25, 2022
 :: Updated: March 26, 2022
 :: Usage: k5
-:: Double-click on k5.bat  OR  run k5 in a command prompt
-:: Makes a snapshot of the output log and saves before starting the game.
-:: Put this file next to "Kura5.exe" 
+:: Put this file next to "Kura5.exe"
+:: Double-click on k5.bat  OR  open command prompt and type k5
+:: Makes a copy of the last output log and save files before starting the game.
 :: TimeStamp code from https://stackoverflow.com/a/1064648
 :: Conditional ErrorLevel checks from https://stackoverflow.com/a/17085933
 
