@@ -1,6 +1,6 @@
 :: Author: Kodedile
 :: Created: June 23, 2021
-:: Updated: December 22, 2021
+:: Updated: April 12, 2022
 :: Usage: load.bat [1 | 2 | 3 | 4] [filepath] 
 :: Example: load.bat 2 speedrun/daypath/start
 ::       will load speedrun/daypath/start.bok into save2.bok (slot 2)
@@ -14,7 +14,7 @@
 SETLOCAL EnableDelayedExpansion
 
 :: directory for Kura5 data files
-SET DataFolder=C:\Users\%USERNAME%\AppData\LocalLow\Kura5\Kura5BOTU
+SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
 :: slot number for save file (default to no number)

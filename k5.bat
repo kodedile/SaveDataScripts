@@ -12,7 +12,7 @@
 SETLOCAL EnableDelayedExpansion
 
 :: directory for data files
-SET DataFolder=C:\Users\%USERNAME%\AppData\LocalLow\Kura5\Kura5BOTU
+SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files

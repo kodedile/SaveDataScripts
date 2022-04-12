@@ -1,6 +1,6 @@
 :: Author: Kodedile
 :: Created: June 23, 2021
-:: Updated: December 22, 2021
+:: Updated: April 12, 2022
 :: Usage: save.bat [0 | 1 | 2 | 3 | 4] [filepath] 
 :: Example: save.bat 2 speedrun/daypath/start
 ::       will save the following:
@@ -17,7 +17,7 @@
 SETLOCAL EnableDelayedExpansion
 
 :: directory for Kura5 data files
-SET DataFolder=C:\Users\%USERNAME%\AppData\LocalLow\Kura5\Kura5BOTU
+SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
 :: slot number for save file (default to 1)
