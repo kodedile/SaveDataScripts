@@ -54,11 +54,11 @@ GOTO Snapshot
 	ECHO ========================================================================
 	ECHO ^>^> What would you like to do? [START^|SAVE^|LOAD^|HELP^|QUIT]
 	SET /P ChosenCommand=^>^>^>^>  
-	IF /I "%ChosenCommand%"=="START" GOTO StartGame
-	IF /I "%ChosenCommand%"=="SAVE" GOTO ProcessSave
-	IF /I "%ChosenCommand%"=="LOAD" GOTO ProcessLoad
-	IF /I "%ChosenCommand%"=="HELP" GOTO ProcessHelp
-	IF /I "%ChosenCommand%"=="QUIT" GOTO ProcessQuit
+	IF /I "%ChosenCommand:~0,5%"=="START" GOTO StartGame
+	IF /I "%ChosenCommand:~0,4%"=="SAVE" GOTO ProcessSave
+	IF /I "%ChosenCommand:~0,4%"=="LOAD" GOTO ProcessLoad
+	IF /I "%ChosenCommand:~0,4%"=="HELP" GOTO ProcessHelp
+	IF /I "%ChosenCommand:~0,4%"=="QUIT" GOTO ProcessQuit
 	GOTO RequestCommand
 	
 	
@@ -66,7 +66,11 @@ GOTO Snapshot
 ::     SAVE PROCEDURES
 :: =================================================
 
-:: TODO
+:: TODO catch errors
+:ProcessSave
+  ECHO Processing the command: %ChosenCommand:~5%
+  CALL save.bat %ChosenCommand:~5%
+  GOTO RequestCommand
 
 :: -------------------------------------------------
 ::     Save Snapshot
@@ -129,7 +133,11 @@ GOTO Snapshot
 ::     LOAD PROCEDURES
 :: =================================================
 
-:: TODO
+:: TODO catch errors
+:ProcessLoad
+  ECHO Processing the command: %ChosenCommand:~5%
+  CALL load.bat %ChosenCommand:~5%
+  GOTO RequestCommand
 
 :: =================================================
 ::     HELP PROCEDURES  TODO
