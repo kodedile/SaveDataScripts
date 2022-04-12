@@ -68,6 +68,7 @@ GOTO Snapshot
 
 :: TODO catch errors
 :ProcessSave
+	ECHO ========================================================================
   ECHO Processing the command: SAVE %ChosenCommand:~5%
 	ECHO ------------------------------------------------------------------------
   CALL save.bat %ChosenCommand:~5%
@@ -136,6 +137,7 @@ GOTO Snapshot
 
 :: TODO catch errors
 :ProcessLoad
+	ECHO ========================================================================
   ECHO Processing the command: LOAD %ChosenCommand:~5%
 	ECHO ------------------------------------------------------------------------
   CALL load.bat %ChosenCommand:~5%
