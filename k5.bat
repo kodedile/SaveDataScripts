@@ -52,11 +52,12 @@ GOTO Snapshot
 :: Ask user to SAVE, LOAD, or QUIT
 :RequestCommand
 	ECHO ========================================================================
-	ECHO ^>^> What would you like to do? [START^|SAVE^|LOAD^|HELP^|QUIT]
+	ECHO ^>^> What would you like to do? [START^|SAVE^|LOAD^|INFO^|HELP^|QUIT]
 	SET /P ChosenCommand=^>^>^>^>  
 	IF /I "%ChosenCommand:~0,5%"=="START" GOTO StartGame
 	IF /I "%ChosenCommand:~0,4%"=="SAVE" GOTO ProcessSave
 	IF /I "%ChosenCommand:~0,4%"=="LOAD" GOTO ProcessLoad
+	IF /I "%ChosenCommand:~0,4%"=="INFO" GOTO ProcessInfo
 	IF /I "%ChosenCommand:~0,4%"=="HELP" GOTO ProcessHelp
 	IF /I "%ChosenCommand:~0,4%"=="QUIT" GOTO ProcessQuit
 	GOTO RequestCommand
@@ -143,6 +144,29 @@ GOTO Snapshot
   CALL load.bat %ChosenCommand:~5%
   GOTO RequestCommand
 
+  :: =================================================
+  ::     INFO PROCEDURES  TODO
+  :: =================================================
+
+:: Tell the user information about the current save slots
+:ProcessInfo
+  SET SlotDate1="empty"
+  SET SlotDate2="empty"
+  SET SlotDate3="empty"
+  SET SlotDate4="empty"
+  IF EXIST "%DataFolder%\save.bok" FOR %%f IN ("%DataFolder%\save.bok") DO SET SlotDate1=%%~tf
+  IF EXIST "%DataFolder%\save2.bok" FOR %%f IN ("%DataFolder%\save2.bok") DO SET SlotDate2=%%~tf
+  IF EXIST "%DataFolder%\save3.bok" FOR %%f IN ("%DataFolder%\save3.bok") DO SET SlotDate3=%%~tf
+  IF EXIST "%DataFolder%\save4.bok" FOR %%f IN ("%DataFolder%\save4.bok") DO SET SlotDate4=%%~tf
+	ECHO ========================================================================
+  ECHO The current Kura5 save slots were last modified at the following times:
+  ECHO SLOT 1:  %SlotDate1%
+  ECHO SLOT 2:  %SlotDate2%
+  ECHO SLOT 3:  %SlotDate3%
+  ECHO SLOT 4:  %SlotDate4%
+  GOTO RequestCommand
+
+
 :: =================================================
 ::     HELP PROCEDURES  TODO
 :: =================================================
@@ -150,12 +174,13 @@ GOTO Snapshot
 :: Ask the user which command to provide help for
 :ProcessHelp
 	ECHO ========================================================================
-	ECHO ^>^> What do you need help with? [START^|SAVE^|LOAD^|QUIT]
+	ECHO ^>^> What do you need help with? [START^|SAVE^|LOAD^|INFO^|QUIT]
 	ECHO   (or type BACK to return to the menu)
 	SET /P ChosenCommand=^>^>^>^>  
 	IF /I "%ChosenCommand%"=="START" GOTO HelpStart
 	IF /I "%ChosenCommand%"=="SAVE" GOTO HelpSave
 	IF /I "%ChosenCommand%"=="LOAD" GOTO HelpLoad
+	IF /I "%ChosenCommand%"=="INFO" GOTO HelpInfo
 	IF /I "%ChosenCommand%"=="QUIT" GOTO HelpQuit
 	IF /I "%ChosenCommand%"=="BACK" GOTO RequestCommand
 	GOTO ProcessHelp
@@ -204,6 +229,13 @@ GOTO Snapshot
 	ECHO ------------------------------------------------------------------------
 	GOTO RequestCommand
 
+:HelpInfo
+  	ECHO ========================================================================
+  	ECHO ^>^> About the INFO command...
+  	ECHO Description: See when the current save slots were last modified.
+  	ECHO Usage: INFO
+  	ECHO ------------------------------------------------------------------------
+  	GOTO RequestCommand
 
 :HelpQuit
 	ECHO ========================================================================
