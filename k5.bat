@@ -11,11 +11,22 @@
 @ECHO OFF 
 SETLOCAL EnableDelayedExpansion
 
+TITLE Kura5 Save Utility (unofficial) - by kodedile
+
 :: directory for data files
 SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
+
+:: provide some welcome message before starting up
+ECHO ========================================================================
+ECHO ^|^|********************************************************************^|^|
+ECHO ^|^|--------------------------------------------------------------------^|^|
+ECHO ^|^|           Welcome to the (unofficial) Kura5 Save Utility!           ^|^|
+ECHO ^|^|    ^If you have questions or comments, please contact ^@Kodedile     ^|^|
+ECHO ^|^|--------------------------------------------------------------------^|^|
+ECHO ^|^|********************************************************************^|^|
 
 :: LET'S BEGIN!
 GOTO ProcessStartGame
