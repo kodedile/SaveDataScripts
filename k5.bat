@@ -49,7 +49,7 @@ GOTO ProcessStartGame
 	) || (
 		ECHO Starting up Kura5...
 		START "" "Kura5.exe" && (
-			ECHO Kura5 now running... TAIYOOOOOU^!
+			ECHO Kura5 is now running... TAIYOOOOOU^!
 			:: NOP to ensure success "CALL "
 			CALL 
 		) || (
@@ -59,7 +59,6 @@ GOTO ProcessStartGame
 		)
 	)
 	GOTO RequestCommand
-
 
 :: Ask user to SAVE, LOAD, or QUIT
 :RequestCommand
@@ -92,7 +91,7 @@ GOTO ProcessStartGame
 :: -------------------------------------------------
 :Snapshot
 	ECHO ========================================================================
-	
+
 	:: get timestamp for the save
 	SET hours=%TIME:~0,2%
 	SET minutes=%TIME:~2,3%
@@ -103,45 +102,49 @@ GOTO ProcessStartGame
 	
 	:: create the save folder in case it doesn't exist yet
 	MKDIR "%SaveFolder%\%TimeStamp%" && (
-		ECHO Created a folder at "%SaveFolder%\%TimeStamp%"
+		ECHO Creating a snapshot at "%SaveFolder%\%TimeStamp%"
 		:: NOP to ensure success "CALL "
 		CALL 
 	) || (
 		ECHO Unable to create a folder at "%SaveFolder%\%TimeStamp%"
 	)
 	
-	ECHO Saving a snapshot...
 	ECHO ------------------------------------------------------------------------
 	
 	:: copy log file to save folder
-	ECHO Saving "%DataFolder%\output_log.txt" 
-	ECHO as "%SaveFolder%\%TimeStamp%\output_log.txt"
+	::ECHO Saving "%DataFolder%\output_log.txt" 
+	::ECHO as "%SaveFolder%\%TimeStamp%\output_log.txt"
+  ECHO Copying output_log.txt
 	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%\%TimeStamp%\output_log.txt"
-	ECHO ------------------------------------------------------------------------
+	::ECHO ------------------------------------------------------------------------
 	
 	:: copy save file to save folder
-	ECHO Saving... "%DataFolder%\save.bok" 
-	ECHO as "%SaveFolder%\%TimeStamp%\save.bok"
+	::ECHO Saving... "%DataFolder%\save.bok" 
+	::ECHO as "%SaveFolder%\%TimeStamp%\save.bok"
+  ECHO Copying save.bok
 	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%\%TimeStamp%\save.bok"
-	ECHO ------------------------------------------------------------------------
+	::ECHO ------------------------------------------------------------------------
 
-	ECHO Saving... "%DataFolder%\save2.bok" 
-	ECHO as "%SaveFolder%\%TimeStamp%\save2.bok"
+	::ECHO Saving... "%DataFolder%\save2.bok" 
+	::ECHO as "%SaveFolder%\%TimeStamp%\save2.bok"
+  ECHO Copying save2.bok
 	COPY /-Y "%DataFolder%\save2.bok" "%SaveFolder%\%TimeStamp%\save2.bok"
-	ECHO ------------------------------------------------------------------------
+	::ECHO ------------------------------------------------------------------------
 
-	ECHO Saving... "%DataFolder%\save3.bok" 
-	ECHO as "%SaveFolder%\%TimeStamp%\save3.bok"
+	::ECHO Saving... "%DataFolder%\save3.bok" 
+	::ECHO as "%SaveFolder%\%TimeStamp%\save3.bok"
+  ECHO Copying save3.bok
 	COPY /-Y "%DataFolder%\save3.bok" "%SaveFolder%\%TimeStamp%\save3.bok"
-	ECHO ------------------------------------------------------------------------
+	::ECHO ------------------------------------------------------------------------
 
-	ECHO Saving... "%DataFolder%\save4.bok" 
-	ECHO as "%SaveFolder%\%TimeStamp%\save4.bok"
+	::ECHO Saving... "%DataFolder%\save4.bok" 
+	::ECHO as "%SaveFolder%\%TimeStamp%\save4.bok"
+  ECHO Copying save4.bok
 	COPY /-Y "%DataFolder%\save4.bok" "%SaveFolder%\%TimeStamp%\save4.bok"	
 	ECHO ------------------------------------------------------------------------
 	
-	ECHO Snapshot saved at "%SaveFolder%\%TimeStamp%"
-	IF %IsInitialSnapshot%==true GOTO ProcessInfo
+	::ECHO Snapshot saved at "%SaveFolder%\%TimeStamp%"
+  ECHO Successfully saved the current snapshot!
 	IF %CalledForGameStart%==true GOTO ProcessInfo
 	GOTO RequestCommand
 
@@ -173,6 +176,7 @@ GOTO ProcessStartGame
   IF EXIST "%DataFolder%\save4.bok" FOR %%f IN ("%DataFolder%\save4.bok") DO SET SlotDate4=%%~tf
 	ECHO ========================================================================
   ECHO The current Kura5 save slots were last modified at the following times:
+  ECHO ------------------------------------------------------------------------
   ECHO SLOT 1:  %SlotDate1%
   ECHO SLOT 2:  %SlotDate2%
   ECHO SLOT 3:  %SlotDate3%
