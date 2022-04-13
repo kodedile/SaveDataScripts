@@ -204,6 +204,7 @@ GOTO ProcessStartGame
 	ECHO ========================================================================
 	ECHO ^>^> About the START command...
 	ECHO Description: Opens Kura5.exe if it is not already running.
+  ECHO Note: Before starting Kura5, it saves a snapshot and shows the slot info.
 	ECHO Usage: START
 	ECHO ------------------------------------------------------------------------
 	GOTO RequestCommand
@@ -212,7 +213,8 @@ GOTO ProcessStartGame
 :HelpSave
 	ECHO ========================================================================
 	ECHO ^>^> About the SAVE command...
-	ECHO Description: Make a copy of your save file, and give it a descriptive name.
+	ECHO Description: Make a copy of your save file, and give it a name.
+  ECHO Usage: SAVE [slot number] [file path]
 	ECHO ------------------------------------------------------------------------
 	ECHO Example 1: 
 	ECHO ------------------------------------------------------------------------
@@ -228,6 +230,7 @@ GOTO ProcessStartGame
 	ECHO ^>^> About the LOAD command...
 	ECHO Description: Load a file into one of the four save slots.
 	ECHO Usage: LOAD [slot number] [file path]
+  ECHO Note: You can drag-and-drop a file instead of typing the whole path.
 	ECHO ------------------------------------------------------------------------
 	ECHO Example 1: 
 	ECHO ------------------------------------------------------------------------
@@ -235,11 +238,9 @@ GOTO ProcessStartGame
 	ECHO ------------------------------------------------------------------------
 	ECHO Example 3: 
 	ECHO ------------------------------------------------------------------------
-	ECHO Example 4: Load all files from a snapshot
-	ECHO Command: LOAD "C:\Users\USERNAME\Games\Kura5_x86_ver05\Kura5_x86\Save_Files\YYYY-MM-DD-hh-mm-ss.ms"
-	ECHO Result: Saves a snapshot. Replaces the save files with those in the YYYY-MM-DD-hh-mm-ss.ms folder.
-	ECHO Note: Any extra files will be deleted.
-	ECHO Note: You can drag-and-drop a folder into the command window instead of typing the path.
+	ECHO Example 4: (WIP) Load all files from a folder (or snapshot)
+	ECHO Command: LOAD "C:\Users\USERNAME\Games\Kura5\Save_Files\FOLDERNAME"
+	ECHO Result: Deletes all the save files from the AppData folder. Then copies the save.bok, save2.bok, save3.bok, and save4.bok from the provided folder.
 	ECHO ------------------------------------------------------------------------
 	GOTO RequestCommand
 
