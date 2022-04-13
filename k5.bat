@@ -129,7 +129,7 @@ GOTO Snapshot
 	ECHO ------------------------------------------------------------------------
 	
 	ECHO Snapshot saved at "%SaveFolder%\%TimeStamp%"
-	IF %IsInitialSnapshot%==true GOTO StartGameInitial
+	IF %IsInitialSnapshot%==true GOTO ProcessInfo
 	GOTO RequestCommand
 
 :: =================================================
@@ -164,6 +164,7 @@ GOTO Snapshot
   ECHO SLOT 2:  %SlotDate2%
   ECHO SLOT 3:  %SlotDate3%
   ECHO SLOT 4:  %SlotDate4%
+  IF %IsInitialSnapshot%==true GOTO StartGameInitial
   GOTO RequestCommand
 
 
