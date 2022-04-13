@@ -17,18 +17,19 @@ SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
 
-:: start by making a snapshot and then prompt to start the game
-SET IsInitialSnapshot=true
-GOTO Snapshot
+:: LET'S BEGIN!
+GOTO ProcessStartGame
 
-
-:StartGameInitial
-	:: start the game for the first time
-	SET IsInitialSnapshot=false
-	GOTO StartGame
+:ProcessStartGame
+  ECHO ========================================================================
+  ECHO Beginning Startup Procedure:  Save Snapshot, Slot Info, Start Kura5
+  :: Take a snapshot, then show slot info, and finally start the game
+  SET CalledForGameStart=true
+  GOTO Snapshot
 
 :StartGame
-	:: start the game
+	IF %CalledForGameStart%==true SET CalledForGameStart=false
+	:: check if we need to start the game
 	ECHO ========================================================================
 	TASKLIST /FI "imagename eq Kura5.exe" |find "Kura5.exe" > nul && (
 		ECHO Kura5 is already running...
@@ -54,7 +55,7 @@ GOTO Snapshot
 	ECHO ========================================================================
 	ECHO ^>^> What would you like to do? [START^|SAVE^|LOAD^|INFO^|HELP^|QUIT]
 	SET /P ChosenCommand=^>^>^>^>  
-	IF /I "%ChosenCommand:~0,5%"=="START" GOTO StartGame
+	IF /I "%ChosenCommand:~0,5%"=="START" GOTO ProcessStartGame
 	IF /I "%ChosenCommand:~0,4%"=="SAVE" GOTO ProcessSave
 	IF /I "%ChosenCommand:~0,4%"=="LOAD" GOTO ProcessLoad
 	IF /I "%ChosenCommand:~0,4%"=="INFO" GOTO ProcessInfo
@@ -130,6 +131,7 @@ GOTO Snapshot
 	
 	ECHO Snapshot saved at "%SaveFolder%\%TimeStamp%"
 	IF %IsInitialSnapshot%==true GOTO ProcessInfo
+	IF %CalledForGameStart%==true GOTO ProcessInfo
 	GOTO RequestCommand
 
 :: =================================================
@@ -164,7 +166,7 @@ GOTO Snapshot
   ECHO SLOT 2:  %SlotDate2%
   ECHO SLOT 3:  %SlotDate3%
   ECHO SLOT 4:  %SlotDate4%
-  IF %IsInitialSnapshot%==true GOTO StartGameInitial
+  IF %CalledForGameStart%==true GOTO StartGame
   GOTO RequestCommand
 
 
