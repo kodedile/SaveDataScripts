@@ -118,12 +118,12 @@ GOTO ProcessStartGame
 	SET TimeStamp=%DATE:~-4%-%DATE:~4,2%-%DATE:~7,2%-%hours%-%minutes%-%seconds%
 	
 	:: create the save folder in case it doesn't exist yet
-	MKDIR "%SaveFolder%\%TimeStamp%" && (
-		ECHO Creating a snapshot at "%SaveFolder%\%TimeStamp%"
+	MKDIR "%SaveFolder%\.snapshot\%TimeStamp%" && (
+		ECHO Creating a snapshot at "%SaveFolder%\.snapshot\%TimeStamp%"
 		:: NOP to ensure success "CALL "
 		CALL 
 	) || (
-		ECHO Unable to create a folder at "%SaveFolder%\%TimeStamp%"
+		ECHO Unable to create a folder at "%SaveFolder%\.snapshot\%TimeStamp%"
 	)
 	
 	ECHO ------------------------------------------------------------------------
@@ -132,32 +132,32 @@ GOTO ProcessStartGame
 	::ECHO Saving "%DataFolder%\output_log.txt" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\output_log.txt"
   ECHO Copying output_log.txt
-	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%\%TimeStamp%\output_log.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%\.snapshot\%TimeStamp%\output_log.txt"
 	::ECHO ------------------------------------------------------------------------
 	
 	:: copy save file to save folder
 	::ECHO Saving... "%DataFolder%\save.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save.bok"
   ECHO Copying save.bok
-	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%\%TimeStamp%\save.bok"
+	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save.bok"
 	::ECHO ------------------------------------------------------------------------
 
 	::ECHO Saving... "%DataFolder%\save2.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save2.bok"
   ECHO Copying save2.bok
-	COPY /-Y "%DataFolder%\save2.bok" "%SaveFolder%\%TimeStamp%\save2.bok"
+	COPY /-Y "%DataFolder%\save2.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save2.bok"
 	::ECHO ------------------------------------------------------------------------
 
 	::ECHO Saving... "%DataFolder%\save3.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save3.bok"
   ECHO Copying save3.bok
-	COPY /-Y "%DataFolder%\save3.bok" "%SaveFolder%\%TimeStamp%\save3.bok"
+	COPY /-Y "%DataFolder%\save3.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save3.bok"
 	::ECHO ------------------------------------------------------------------------
 
 	::ECHO Saving... "%DataFolder%\save4.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save4.bok"
   ECHO Copying save4.bok
-	COPY /-Y "%DataFolder%\save4.bok" "%SaveFolder%\%TimeStamp%\save4.bok"	
+	COPY /-Y "%DataFolder%\save4.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save4.bok"	
 	ECHO ------------------------------------------------------------------------
 	
 	::ECHO Snapshot saved at "%SaveFolder%\%TimeStamp%"

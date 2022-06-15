@@ -9,3 +9,4 @@ Maybe on the list:
 -[x] prompt for path to Kura5 exe and data if failed to find either on start up
 - make the prompt less scary (disable error dialogue)
 -[x] more feedback about currently running version
+-[x] put snapshots in subdirectory
