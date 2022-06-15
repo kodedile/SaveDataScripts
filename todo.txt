@@ -1,0 +1,11 @@
+Next on the list:
+- load an entire snapshot into the game
+- name the snapshot (instead of just a timestamp)
+- prompt for save/load arguments if none are provided
+
+Maybe on the list:
+- show the current slot info at the end of a command
+- watch files and prompt for save if anything changes
+-[x] prompt for path to Kura5 exe and data if failed to find either on start up
+- make the prompt less scary (disable error dialogue)
+-[x] more feedback about currently running version

@@ -1,6 +1,6 @@
 :: Author: Kodedile
 :: Created: March 25, 2022
-:: Updated: April 12, 2022
+:: Updated: June 14, 2022
 :: Usage: k5
 :: Put this file next to "Kura5.exe"
 :: Double-click on k5.bat  OR  open command prompt and type k5
@@ -19,6 +19,9 @@ SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
 
+:: directory for Kura5.exe, for example:  \Kura5_x86_64_ver042\Kura5_x86
+SET Kura5Folder=%cd%
+
 :: provide some welcome message before starting up
 ECHO ========================================================================
 ECHO ^|^|********************************************************************^|^|
@@ -34,6 +37,8 @@ GOTO ProcessStartGame
 :ProcessStartGame
   ECHO ========================================================================
   ECHO Beginning Startup Procedure:  Save Snapshot, Slot Info, Start Kura5
+  ECHO ------------------------------------------------------------------------
+  ECHO The Kura5 folder is currently set to %Kura5Folder%
   :: Take a snapshot, then show slot info, and finally start the game
   SET CalledForGameStart=true
   GOTO Snapshot
@@ -48,17 +53,29 @@ GOTO ProcessStartGame
 		CALL 
 	) || (
 		ECHO Starting up Kura5...
-		START "" "Kura5.exe" && (
+		START "" "%Kura5Folder%\Kura5.exe" && (
 			ECHO Kura5 is now running... TAIYOOOOOU^!
 			:: NOP to ensure success "CALL "
 			CALL 
 		) || (
+			ECHO ------------------------------------------------------------------------
 			ECHO Unable to start Kura5... 
-			ECHO Check that this file is in the same folder as Kura5.exe, and then try again.
-			GOTO :EOF
+			ECHO Check that this file is in the same folder as Kura5.exe, or
+			ECHO Provide a path to Kura5.exe, like "Kura5_x86_64_ver042\Kura5_x86"
+			SET /P Kura5FolderPrompt=^>^>^>^>
+			GOTO :StartGameFolderCheck
 		)
 	)
 	GOTO RequestCommand
+
+:: Check user input for Kura5Folder
+:StartGameFolderCheck
+	::ECHO user provided %Kura5FolderPrompt%
+	IF /I "%Kura5FolderPrompt%"=="QUIT" GOTO ProcessQuit
+	SET Kura5Folder=%Kura5FolderPrompt%
+	ECHO ------------------------------------------------------------------------
+	ECHO Attempting to start %Kura5Folder%\Kura5.exe...
+	GOTO :StartGame
 
 :: Ask user to SAVE, LOAD, or QUIT
 :RequestCommand
@@ -181,6 +198,8 @@ GOTO ProcessStartGame
   ECHO SLOT 2:  %SlotDate2%
   ECHO SLOT 3:  %SlotDate3%
   ECHO SLOT 4:  %SlotDate4%
+  ECHO ------------------------------------------------------------------------
+  ECHO The Kura5 folder is currently set to %Kura5Folder%
   IF %CalledForGameStart%==true GOTO StartGame
   GOTO RequestCommand
 
