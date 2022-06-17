@@ -134,10 +134,10 @@ GOTO LastUsedFolderCheck
 :: TODO catch errors
 :ProcessSave
 	ECHO ========================================================================
-  ECHO Processing the command: SAVE %ChosenCommand:~5%
+	ECHO Processing the command: SAVE %ChosenCommand:~5%
 	ECHO ------------------------------------------------------------------------
-  CALL save.bat %ChosenCommand:~5%
-  GOTO RequestCommand
+	CALL save.bat %ChosenCommand:~5%
+	GOTO RequestCommand
 
 :: -------------------------------------------------
 ::     Save Snapshot
@@ -167,32 +167,32 @@ GOTO LastUsedFolderCheck
 	:: copy log file to save folder
 	::ECHO Saving "%DataFolder%\output_log.txt" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\output_log.txt"
-  ECHO Copying output_log.txt
+	ECHO Copying output_log.txt
 	COPY /-Y "%DataFolder%\output_log.txt" "%SaveFolder%\.snapshot\%TimeStamp%\output_log.txt"
 	::ECHO ------------------------------------------------------------------------
 	
 	:: copy save file to save folder
 	::ECHO Saving... "%DataFolder%\save.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save.bok"
-  ECHO Copying save.bok
+	ECHO Copying save.bok
 	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save.bok"
 	::ECHO ------------------------------------------------------------------------
 
 	::ECHO Saving... "%DataFolder%\save2.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save2.bok"
-  ECHO Copying save2.bok
+	ECHO Copying save2.bok
 	COPY /-Y "%DataFolder%\save2.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save2.bok"
 	::ECHO ------------------------------------------------------------------------
 
 	::ECHO Saving... "%DataFolder%\save3.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save3.bok"
-  ECHO Copying save3.bok
+	ECHO Copying save3.bok
 	COPY /-Y "%DataFolder%\save3.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save3.bok"
 	::ECHO ------------------------------------------------------------------------
 
 	::ECHO Saving... "%DataFolder%\save4.bok" 
 	::ECHO as "%SaveFolder%\%TimeStamp%\save4.bok"
-  ECHO Copying save4.bok
+	ECHO Copying save4.bok
 	COPY /-Y "%DataFolder%\save4.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save4.bok"	
 	ECHO ------------------------------------------------------------------------
 	
@@ -208,39 +208,38 @@ GOTO LastUsedFolderCheck
 :: TODO catch errors
 :ProcessLoad
 	ECHO ========================================================================
-  ECHO Processing the command: LOAD %ChosenCommand:~5%
+	ECHO Processing the command: LOAD %ChosenCommand:~5%
 	ECHO ------------------------------------------------------------------------
-  CALL load.bat %ChosenCommand:~5%
-  GOTO RequestCommand
+	CALL load.bat %ChosenCommand:~5%
+	GOTO RequestCommand
 
-  :: =================================================
-  ::     INFO PROCEDURES  TODO
-  :: =================================================
+	:: =================================================
+	::     INFO PROCEDURES  TODO
+	:: =================================================
 
 :: Tell the user information about the current save slots
 :ProcessInfo
-  SET SlotDate1="empty"
-  SET SlotDate2="empty"
-  SET SlotDate3="empty"
-  SET SlotDate4="empty"
-  IF EXIST "%DataFolder%\save.bok" FOR %%f IN ("%DataFolder%\save.bok") DO SET SlotDate1=%%~tf
-  IF EXIST "%DataFolder%\save2.bok" FOR %%f IN ("%DataFolder%\save2.bok") DO SET SlotDate2=%%~tf
-  IF EXIST "%DataFolder%\save3.bok" FOR %%f IN ("%DataFolder%\save3.bok") DO SET SlotDate3=%%~tf
-  IF EXIST "%DataFolder%\save4.bok" FOR %%f IN ("%DataFolder%\save4.bok") DO SET SlotDate4=%%~tf
+	SET SlotDate1="empty"
+	SET SlotDate2="empty"
+	SET SlotDate3="empty"
+	SET SlotDate4="empty"
+	IF EXIST "%DataFolder%\save.bok" FOR %%f IN ("%DataFolder%\save.bok") DO SET SlotDate1=%%~tf
+	IF EXIST "%DataFolder%\save2.bok" FOR %%f IN ("%DataFolder%\save2.bok") DO SET SlotDate2=%%~tf
+	IF EXIST "%DataFolder%\save3.bok" FOR %%f IN ("%DataFolder%\save3.bok") DO SET SlotDate3=%%~tf
+	IF EXIST "%DataFolder%\save4.bok" FOR %%f IN ("%DataFolder%\save4.bok") DO SET SlotDate4=%%~tf
 	ECHO ========================================================================
-  ECHO The current Kura5 save slots were last modified at the following times:
-  ECHO ------------------------------------------------------------------------
-  ECHO SLOT 1:  %SlotDate1%
-  ECHO SLOT 2:  %SlotDate2%
-  ECHO SLOT 3:  %SlotDate3%
-  ECHO SLOT 4:  %SlotDate4%
-  ECHO ------------------------------------------------------------------------
-  ECHO The Kura5 folder is currently set to %Kura5Folder%
-  IF %CalledForGameStart%==true GOTO StartGame
-  GOTO RequestCommand
+	ECHO The current Kura5 save slots were last modified at the following times:
+	ECHO ------------------------------------------------------------------------
+	ECHO SLOT 1:  %SlotDate1%
+	ECHO SLOT 2:  %SlotDate2%
+	ECHO SLOT 3:  %SlotDate3%
+	ECHO SLOT 4:  %SlotDate4%
+	ECHO ------------------------------------------------------------------------
 	ECHO The Data folder is currently set to %DataFolder%
 	ECHO The Save folder is currently set to %SaveFolder%
 	ECHO The Kura5 folder is currently set to %Kura5Folder%
+	IF %CalledForGameStart%==true GOTO StartGame
+	GOTO RequestCommand
 
 
 :: =================================================
@@ -266,7 +265,7 @@ GOTO LastUsedFolderCheck
 	ECHO ========================================================================
 	ECHO ^>^> About the START command...
 	ECHO Description: Opens Kura5.exe if it is not already running.
-  ECHO Note: Before starting Kura5, it saves a snapshot and shows the slot info.
+	ECHO Note: Before starting Kura5, it saves a snapshot and shows the slot info.
 	ECHO Usage: START
 	ECHO ------------------------------------------------------------------------
 	GOTO RequestCommand
@@ -276,7 +275,7 @@ GOTO LastUsedFolderCheck
 	ECHO ========================================================================
 	ECHO ^>^> About the SAVE command...
 	ECHO Description: Make a copy of your save file, and give it a name.
-  ECHO Usage: SAVE [slot number] [file path]
+	ECHO Usage: SAVE [slot number] [file path]
 	ECHO ------------------------------------------------------------------------
 	ECHO Example 1: 
 	ECHO ------------------------------------------------------------------------
@@ -292,7 +291,7 @@ GOTO LastUsedFolderCheck
 	ECHO ^>^> About the LOAD command...
 	ECHO Description: Load a file into one of the four save slots.
 	ECHO Usage: LOAD [slot number] [file path]
-  ECHO Note: You can drag-and-drop a file instead of typing the whole path.
+	ECHO Note: You can drag-and-drop a file instead of typing the whole path.
 	ECHO ------------------------------------------------------------------------
 	ECHO Example 1: 
 	ECHO ------------------------------------------------------------------------
@@ -307,12 +306,12 @@ GOTO LastUsedFolderCheck
 	GOTO RequestCommand
 
 :HelpInfo
-  	ECHO ========================================================================
-  	ECHO ^>^> About the INFO command...
-  	ECHO Description: See when the current save slots were last modified.
-  	ECHO Usage: INFO
-  	ECHO ------------------------------------------------------------------------
-  	GOTO RequestCommand
+		ECHO ========================================================================
+		ECHO ^>^> About the INFO command...
+		ECHO Description: See when the current save slots were last modified.
+		ECHO Usage: INFO
+		ECHO ------------------------------------------------------------------------
+		GOTO RequestCommand
 
 :HelpQuit
 	ECHO ========================================================================
