@@ -238,6 +238,9 @@ GOTO LastUsedFolderCheck
   ECHO The Kura5 folder is currently set to %Kura5Folder%
   IF %CalledForGameStart%==true GOTO StartGame
   GOTO RequestCommand
+	ECHO The Data folder is currently set to %DataFolder%
+	ECHO The Save folder is currently set to %SaveFolder%
+	ECHO The Kura5 folder is currently set to %Kura5Folder%
 
 
 :: =================================================
