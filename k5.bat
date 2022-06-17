@@ -196,8 +196,8 @@ GOTO LastUsedFolderCheck
 	COPY /-Y "%DataFolder%\save4.bok" "%SaveFolder%\.snapshot\%TimeStamp%\save4.bok"	
 	ECHO ------------------------------------------------------------------------
 	
-	::ECHO Snapshot saved at "%SaveFolder%\%TimeStamp%"
-  ECHO Successfully saved the current snapshot!
+	ECHO Snapshot saved at %TimeStamp% > "%SaveFolder%\Kura5LastSaved.txt"
+	ECHO Successfully saved the current snapshot!
 	IF %CalledForGameStart%==true GOTO ProcessInfo
 	GOTO RequestCommand
 

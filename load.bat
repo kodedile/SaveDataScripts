@@ -1,6 +1,6 @@
 :: Author: Kodedile
 :: Created: June 23, 2021
-:: Updated: April 12, 2022
+:: Updated: June 16, 2022
 :: Usage: load.bat [1 | 2 | 3 | 4] [filepath] 
 :: Example: load.bat 2 speedrun/daypath/start
 ::       will load speedrun/daypath/start.bok into save2.bok (slot 2)
@@ -70,16 +70,39 @@ GOTO ProcessArguments
 		IF "%FileName:~0,6%"=="slot3_" SET SlotNum=3
 		IF "%FileName:~0,6%"=="slot4_" SET SlotNum=4
 	)
-	IF "%SlotNum%"=="1" GOTO LoadSlot1
 	
 	:: create the data folder in case it doesn't exist yet
 	MKDIR "%DataFolder%"
 	
-	:: copy save file to data folder
-	COPY /-Y "%SaveFile%" "%DataFolder%\save%SlotNum%.bok"
-	ECHO Loaded "%SaveFile%" into slot "%DataFolder%\save%SlotNum%.bok"
+	:: get timestamp for the backup save
+	SET hours=%TIME:~0,2%
+	SET minutes=%TIME:~2,3%
+	SET seconds=%TIME:~6%
+	SET hours=%hours::=%
+	SET minutes=%minutes::=%
+	SET TimeStamp=%DATE:~-4%-%DATE:~4,2%-%DATE:~7,2%-%hours%-%minutes%-%seconds%
 	
-	GOTO :EOF
+	:: create the save folder in case it doesn't exist yet
+	MKDIR "%SaveFolder%\.backup" && (
+		ECHO Creating a backup folder at "%SaveFolder%\.backup"
+		:: NOP to ensure success "CALL "
+		CALL 
+	) || (
+		ECHO Unable to create a backup folder at "%SaveFolder%\.backup"
+	)
+	
+	::ECHO %FileName%
+	::ECHO %FilePath%
+	::ECHO %File%
+	::ECHO %PathToFile%
+	::ECHO %SaveFile%
+	:: Removes path in SaveFolder from string
+	SET ShortFilePath=!SaveFile:%USERPROFILE%\=!
+	SET ShortFilePath=!ShortFilePath:%SaveFolder%=!
+	
+	IF "%SlotNum%"=="1" GOTO BackUpSlot1
+	IF "%SlotNum%"=="" GOTO BackUpSlot1
+	GOTO BackUpSlotN
 
 
 :StoreSlotNum
@@ -93,8 +116,29 @@ GOTO ProcessArguments
 	GOTO ProcessArguments
 
 
+:BackUpSlot1
+	ECHO Copying slot 1 to a backup file
+	COPY /-Y "%DataFolder%\save.bok" "%SaveFolder%\.backup\save-%TimeStamp%.bok"
+	GOTO LoadSlot1
+
+
+:BackUpSlotN
+	ECHO Copying slot %SlotNum% to a backup file
+	COPY /-Y "%DataFolder%\save%SlotNum%.bok" "%SaveFolder%\.backup\save%SlotNum%-%TimeStamp%.bok"
+	GOTO LoadSlotN
+
+
 :LoadSlot1
 	:: copy save file to data folder
 	COPY /-Y "%SaveFile%" "%DataFolder%\save.bok"
 	ECHO Loaded "%SaveFile%" into slot "%DataFolder%\save.bok"
+	ECHO Loaded slot 1 with %ShortFilePath% > "%SaveFolder%\Kura5LastSaved.txt"
+	GOTO :EOF
+
+
+:LoadSlotN
+	:: copy save file to data folder
+	COPY /-Y "%SaveFile%" "%DataFolder%\save%SlotNum%.bok"
+	ECHO Loaded "%SaveFile%" into slot "%DataFolder%\save%SlotNum%.bok"
+	ECHO Loaded slot %SlotNum% with %ShortFilePath% > "%SaveFolder%\Kura5LastSaved.txt"
 	GOTO :EOF
