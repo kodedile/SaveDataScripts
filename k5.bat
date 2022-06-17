@@ -1,6 +1,6 @@
 :: Author: Kodedile
 :: Created: March 25, 2022
-:: Updated: June 14, 2022
+:: Updated: June 17, 2022
 :: Usage: k5
 :: Put this file next to "Kura5.exe"
 :: Double-click on k5.bat  OR  open command prompt and type k5
@@ -19,29 +19,41 @@ SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
 
-:: directory for Kura5.exe, for example:  \Kura5_x86_64_ver042\Kura5_x86
-SET Kura5Folder=%cd%
+:: directory for Kura5.exe, for example:  Kura5_x86_64_ver042\Kura5_x86
+:: default looks for Kura5.exe in current directory
+:: DO NOT EDIT THIS LINE.  EDIT THE FILE Kura5Version.txt INSTEAD
+SET Kura5FolderDefault=%cd%
+
+:: Use previously set version if it is known
+SET CheckingVersionFile=true
+GOTO LastUsedFolderCheck
+
 
 :: provide some welcome message before starting up
-ECHO ========================================================================
-ECHO ^|^|********************************************************************^|^|
-ECHO ^|^|--------------------------------------------------------------------^|^|
-ECHO ^|^|           Welcome to the (unofficial) Kura5 Save Utility!           ^|^|
-ECHO ^|^|    ^If you have questions or comments, please contact ^@Kodedile     ^|^|
-ECHO ^|^|--------------------------------------------------------------------^|^|
-ECHO ^|^|********************************************************************^|^|
+:StartupText
+	SET CheckingVersionFile=false
+	
+	ECHO ========================================================================
+	ECHO ^|^|********************************************************************^|^|
+	ECHO ^|^|--------------------------------------------------------------------^|^|
+	ECHO ^|^|           Welcome to the (unofficial) Kura5 Save Utility!           ^|^|
+	ECHO ^|^|    ^If you have questions or comments, please contact ^@Kodedile     ^|^|
+	ECHO ^|^|--------------------------------------------------------------------^|^|
+	ECHO ^|^|********************************************************************^|^|
 
-:: LET'S BEGIN!
-GOTO ProcessStartGame
+	:: LET'S BEGIN!
+	GOTO ProcessStartGame
 
 :ProcessStartGame
-  ECHO ========================================================================
-  ECHO Beginning Startup Procedure:  Save Snapshot, Slot Info, Start Kura5
-  ECHO ------------------------------------------------------------------------
-  ECHO The Kura5 folder is currently set to %Kura5Folder%
-  :: Take a snapshot, then show slot info, and finally start the game
-  SET CalledForGameStart=true
-  GOTO Snapshot
+	ECHO ========================================================================
+	ECHO Beginning Startup Procedure:  Save Snapshot, Slot Info, Start Kura5
+	ECHO ------------------------------------------------------------------------
+	
+	ECHO The Kura5 folder is currently set to %Kura5Folder%
+	
+	:: Take a snapshot, then show slot info, and finally start the game
+	SET CalledForGameStart=true
+	GOTO Snapshot
 
 :StartGame
 	IF %CalledForGameStart%==true SET CalledForGameStart=false
@@ -52,30 +64,52 @@ GOTO ProcessStartGame
 		:: NOP to ensure success "CALL "
 		CALL 
 	) || (
-		ECHO Starting up Kura5...
+		ECHO Attempting to start %Kura5Folder%\Kura5.exe...
 		START "" "%Kura5Folder%\Kura5.exe" && (
 			ECHO Kura5 is now running... TAIYOOOOOU^!
+			ECHO %Kura5Folder% > "%SaveFolder%\Kura5Version.txt"
+			ECHO %ShortKura5Folder% > "%SaveFolder%\Kura5Version_NoUsername.txt"
+			TITLE Kura5 Save Utility running "%ShortKura5Folder%\Kura5.exe"
 			:: NOP to ensure success "CALL "
 			CALL 
 		) || (
 			ECHO ------------------------------------------------------------------------
 			ECHO Unable to start Kura5... 
 			ECHO Check that this file is in the same folder as Kura5.exe, or
-			ECHO Provide a path to Kura5.exe, like "Kura5_x86_64_ver042\Kura5_x86"
+			ECHO Provide a path to Kura5.exe, without leading or trailing ^\
+			ECHO Example:  Kura5_x86_64_ver042\Kura5_x86
+			ECHO Example:  C:\Users\Username\Downloads\Kura5_x86_0616\Kura5_x86
 			SET /P Kura5FolderPrompt=^>^>^>^>
 			GOTO :StartGameFolderCheck
 		)
 	)
 	GOTO RequestCommand
 
+:: Process input for Kura5Folder
+:LastUsedFolderCheck
+	SET /P Kura5FolderPrompt= < "%SaveFolder%\Kura5Version.txt"
+	GOTO StartGameFolderCheck
+
 :: Check user input for Kura5Folder
 :StartGameFolderCheck
-	::ECHO user provided %Kura5FolderPrompt%
 	IF /I "%Kura5FolderPrompt%"=="QUIT" GOTO ProcessQuit
-	SET Kura5Folder=%Kura5FolderPrompt%
-	ECHO ------------------------------------------------------------------------
-	ECHO Attempting to start %Kura5Folder%\Kura5.exe...
-	GOTO :StartGame
+	IF "%Kura5FolderPrompt%"=="" SET Kura5FolderPrompt=%Kura5FolderDefault%
+	IF "%Kura5FolderPrompt:~1,2%"==":\" GOTO FolderCheckFullPath
+	:: Otherwise, change relative to absolute, without EXE
+	SET Kura5Folder=%cd%\%Kura5FolderPrompt:\Kura5.exe=%
+	SET ShortKura5Folder=!Kura5Folder:%USERPROFILE%\=!
+	IF %CheckingVersionFile%==true GOTO StartupText
+	GOTO StartGame
+	
+:FolderCheckFullPath
+	:: Use full input, without EXE
+	SET Kura5Folder=%Kura5FolderPrompt:\Kura5.exe=%
+	:: Remove trailing slash if exists
+	IF "%Kura5Folder:~-1%"=="\" SET Kura5Folder=%Kura5Folder:~0,-1%
+	SET ShortKura5Folder=!Kura5Folder:%USERPROFILE%\=!
+	IF %CheckingVersionFile%==true GOTO StartupText
+	GOTO StartGame
+	
 
 :: Ask user to SAVE, LOAD, or QUIT
 :RequestCommand
