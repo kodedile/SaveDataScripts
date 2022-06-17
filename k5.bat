@@ -15,9 +15,11 @@ TITLE Kura5 Save Utility (unofficial) - by kodedile
 
 :: directory for data files
 SET DataFolder=%USERPROFILE%\AppData\LocalLow\Kura5\Kura5BOTU
+SET ShortDataFolder=!DataFolder:%USERPROFILE%\=!
 
 :: directory for storing save files
 SET SaveFolder=%cd%\Save_Files
+SET ShortSaveFolder="!SaveFolder:%USERPROFILE%\=!
 
 :: directory for Kura5.exe, for example:  Kura5_x86_64_ver042\Kura5_x86
 :: default looks for Kura5.exe in current directory
@@ -153,11 +155,11 @@ GOTO LastUsedFolderCheck
 	
 	:: create the save folder in case it doesn't exist yet
 	MKDIR "%SaveFolder%\.snapshot\%TimeStamp%" && (
-		ECHO Creating a snapshot at "%SaveFolder%\.snapshot\%TimeStamp%"
+		ECHO Creating a snapshot at "%ShortSaveFolder%\.snapshot\%TimeStamp%"
 		:: NOP to ensure success "CALL "
 		CALL 
 	) || (
-		ECHO Unable to create a folder at "%SaveFolder%\.snapshot\%TimeStamp%"
+		ECHO Unable to create a folder at "%ShortSaveFolder%\.snapshot\%TimeStamp%"
 	)
 	
 	ECHO ------------------------------------------------------------------------
