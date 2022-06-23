@@ -1,11 +1,11 @@
 :: Author: Kodedile
 :: Created: June 23, 2021
-:: Updated: June 16, 2022
+:: Updated: June 23, 2022
 :: Usage: save.bat [0 | 1 | 2 | 3 | 4] [filepath] 
 :: Example: save.bat 2 speedrun/daypath/start
 ::       will save the following:
 ::             save2.bok into speedrun/daypath/start.bok
-::             output_log.txt into speedrun/daypath/log_slot2_start.txt
+::             output_log.txt into .logs/speedrun/daypath/slot2_start.txt
 :: Note: arguments allowed to be in any order, .bok extension optional
 :: Note2: digits other than 0/1/2/3/4 will default to 1 (save.bok)
 :: Note3: if digit is left out, it will default to 1 (save.bok)
@@ -57,15 +57,6 @@ GOTO ProcessArguments
 	SET minutes=%minutes::=%
 	SET TimeStamp=%DATE:~-4%-%DATE:~4,2%-%DATE:~7,2%-%hours%-%minutes%-%seconds%
 
-	:: create the save folder in case it doesn't exist yet
-	MKDIR "%SaveFolder%\.logs" && (
-		ECHO Creating a log folder at "%SaveFolder%\.logs"
-		:: NOP to ensure success "CALL "
-		CALL 
-	) || (
-		ECHO Unable to create a log folder at "%SaveFolder%\.logs"
-	)
-
 	:: set default name to timestamp
 	IF [%FilePath%]==[] SET FilePath=%TimeStamp%.bok
 
@@ -78,11 +69,22 @@ GOTO ProcessArguments
 	SET CurrentDir=%cd%
 	CALL SET FolderPath=%%PathToFile:!CurrentDir!=%%
 	SET SavePath=%SaveFolder%%FolderPath%
+  SET LogPath=%SaveFolder%\.logs%FolderPath%
+	
+	:: create the logs folder in case it doesn't exist yet
+	MKDIR "%LogPath%" && (
+		ECHO Creating a log folder at "%LogPath%"
+		:: NOP to ensure success "CALL "
+		CALL 
+	) || (
+		ECHO Unable to create a log folder at "%LogPath%"
+	)
+	
+	IF "%SlotNum%"=="0" GOTO SaveOutputOnly
 	
 	:: create the save folder in case it doesn't exist yet
 	MKDIR "%SavePath%"
 	
-	IF "%SlotNum%"=="0" GOTO SaveOutputOnly
 	IF "%SlotNum%"=="1" GOTO SaveSlot1
 	
 	:: copy data file to save folder
@@ -90,10 +92,10 @@ GOTO ProcessArguments
 	ECHO Saved "%DataFolder%\save%SlotNum%.bok" as "%SavePath%%FileName%.bok"
 	
 	:: copy output log file to save folder
-	COPY /-Y "%DataFolder%\output_log.txt" "%SavePath%.logs/slot%SlotNum%_%FileName%.txt"
-	ECHO Saved log file as "%SavePath%.logs/slot%SlotNum%_%FileName%.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%LogPath%slot%SlotNum%_%FileName%.txt"
+	ECHO Saved log file as "%LogPath%slot%SlotNum%_%FileName%.txt"
 	
-	ECHO Copied slot %SlotNum% into "%FileName%.bok" > "%SaveFolder%\Kura5LastSaved.txt"
+	ECHO Copied slot %SlotNum% into "%FolderPath%%FileName%.bok" > "%SaveFolder%\Kura5LastSaved.txt"
 
 	GOTO :EOF
 
@@ -111,9 +113,9 @@ GOTO ProcessArguments
 
 :SaveOutputOnly 
 	:: copy output log file to save folder
-	COPY /-Y "%DataFolder%\output_log.txt" "%SavePath%.logs/%FileName%.txt"
-	ECHO Saved log file as "%SavePath%.logs/%FileName%.txt"
-	ECHO Copied output log into ".logs/%FileName%.txt" > "%SaveFolder%\Kura5LastSaved.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%LogPath%%FileName%.txt"
+	ECHO Saved log file as "%LogPath%%FileName%.txt"
+	ECHO Copied output log into ".logs%FolderPath%%FileName%.txt" > "%SaveFolder%\Kura5LastSaved.txt"
 	GOTO :EOF
 
 
@@ -123,9 +125,9 @@ GOTO ProcessArguments
 	ECHO Saved "%DataFolder%\save.bok" as "%SavePath%%FileName%.bok"
 	
 	:: copy output log file to save folder
-	COPY /-Y "%DataFolder%\output_log.txt" "%SavePath%.logs/slot%SlotNum%_%FileName%.txt"
-	ECHO Saved log file as "%SavePath%.logs/slot%SlotNum%_%FileName%.txt"
+	COPY /-Y "%DataFolder%\output_log.txt" "%LogPath%slot%SlotNum%_%FileName%.txt"
+	ECHO Saved log file as "%LogPath%slot%SlotNum%_%FileName%.txt"
 	
-	ECHO Copied slot %SlotNum% into "%FileName%.bok" > "%SaveFolder%\Kura5LastSaved.txt"
+	ECHO Copied slot %SlotNum% into "%FolderPath%%FileName%.bok" > "%SaveFolder%\Kura5LastSaved.txt"
 	
 	GOTO :EOF
